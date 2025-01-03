@@ -75,6 +75,13 @@ A fast implementation of BLAS and LAPACK is required by Ipopt.
 To build the AMPL interface of Ipopt, the AMPL Solver Library (ASL) is required.
 It is recommended to use project [ThirdParty-ASL](https://github.com/coin-or-tools/ThirdParty-ASL) to build a ASL library for use by Ipopt.
 
+### Features
+	•	Large-Scale Nonlinear Optimization: Handles both equality and inequality constraints.
+	•	Flexible Solver Integration: Supports various linear solvers like MUMPS, HSL, Pardiso, and SPRAL.
+	•	Cross-Platform: Available on Linux/UNIX, macOS, and Windows.
+	•	Language Bindings: Interfaces for C++, Python, R, Julia, MATLAB, and AMPL.
+	•	Open Source: Released under the Eclipse Public License (EPL), allowing free use for commercial purposes.
+
 ### Build
 
 After installation of dependencies, an Ipopt build and installation follows these 4 steps:
@@ -105,6 +112,42 @@ After obtaining the `coinbrew` script, run
 
 More details on using coinbrew can be found at the instructions on
 [Getting Started with the COIN-OR Optimization Suite](https://coin-or.github.io/user_introduction).
+
+
+### Usage Examples
+
+Simple Python Example
+
+Here’s a basic example of solving a nonlinear optimization problem using Ipopt in Python (via CyIpopt):
+
+import numpy as np
+from cyipopt import minimize_ipopt
+
+# Define the objective function
+def objective(x):
+    return (x[0] - 1)**2 + (x[1] - 2.5)**2
+
+# Define constraints
+def constraint1(x):
+    return x[0] - 2 * x[1] + 2
+
+# Initial guess
+x0 = [2, 0]
+
+# Bounds
+bounds = [(0, None), (0, None)]
+
+# Constraints in dictionary form
+constraints = [{"type": "eq", "fun": constraint1}]
+
+# Solve the optimization problem
+result = minimize_ipopt(objective, x0, bounds=bounds, constraints=constraints)
+print(result)
+
+
+Additional Tutorials
+	•	Getting Started with Ipopt: https://coin-or.github.io/Ipopt/
+	•	Python Bindings: https://github.com/mechmotum/cyipopt
 
 ### Precompiled binaries
 
